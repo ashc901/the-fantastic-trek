@@ -25,7 +25,7 @@ class CreateWalk extends Component {
       const name = event.target.name
       const value = event.target.value
       const updatedValue = { [name]: value }
-      return { walk: { ...prevState.post, ...updatedValue } }
+      return { walk: { ...prevState.walk, ...updatedValue } }
     })
   }
 handleSubmit = (event) => {
