@@ -9,7 +9,7 @@ import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
-
+import About from './components/About/About'
 // Walk components
 import CreateWalk from './components/CreateWalk/CreateWalk'
 
@@ -70,6 +70,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/walks' render={() => (
             <CreateWalk msgAlert={this.msgAlert} user={user} />
+          )} />
+          <Route path='/about' render={() => (
+            <About msgAlert={this.msgAlert} />
           )} />
         </main>
       </Fragment>
