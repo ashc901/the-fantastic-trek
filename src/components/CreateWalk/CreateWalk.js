@@ -57,7 +57,7 @@ handleSubmit = (event) => {
       })
     })
     .catch(error => this.props.msgAlert({
-      header: 'Failer with error: ' + error.message,
+      header: 'Failed with error: ' + error.message,
       message: messages.createWalkFailure,
       variant: 'danger'
     })
