@@ -40,7 +40,6 @@ handleSubmit = (event) => {
     }
   })
     .then((res) => {
-      console.log('this is the response ' + res.data.walk._id)
       this.setState({ createdId: res.data.walk._id })
     })
     .then(() => this.props.msgAlert({
@@ -48,24 +47,27 @@ handleSubmit = (event) => {
       message: messages.createWalkSuccess,
       variant: 'success'
     }))
-    .then(() => {
-      this.setState({ walk: {
-        startPoint: '',
-        endPoint: '',
-        distance: 0
-      }
-      })
-    })
+
     .catch(error => this.props.msgAlert({
       header: 'Failed with error: ' + error.message,
       message: messages.createWalkFailure,
       variant: 'danger'
     })
     )
+  this.setState(state => {
+    const updatedWalkState = { walk: {
+      ...state.walk,
+      ...{
+        startPoint: '',
+        endPoint: '',
+        distance: ''
+      }
+    } }
+    return { walk: updatedWalkState.walk }
+  })
 }
 render () {
-  const { startPoint, endPoint } = this.state
-
+  const { startPoint, endPoint, distance } = this.state.walk
   return (
     <div className="row">
       <div className="col-sm-10 col-md-8 mx-auto mt-5">
@@ -77,7 +79,7 @@ render () {
               type="text"
               name="startPoint"
               value={startPoint}
-              placeholder="Start"
+              placeholder="A"
               onChange={this.handleChange}
             />
           </Form.Group>
@@ -87,7 +89,17 @@ render () {
               name="endPoint"
               type="text"
               value={endPoint}
-              placeholder="Destination"
+              placeholder="B"
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="distance">
+            <Form.Label>Distance</Form.Label>
+            <Form.Control
+              name="distance"
+              type="number"
+              value={distance}
+              placeholder="x"
               onChange={this.handleChange}
             />
           </Form.Group>
