@@ -7,5 +7,9 @@ export default {
   changePasswordSuccess: 'Password changed successfully!',
   changePasswordFailure: 'Failed to change passwords. Check your old password and try again.',
   createWalkSuccess: 'insert fun "go" message',
-  createWalkFailure: 'oop'
+  createWalkFailure: 'oop',
+  deleteWalkSuccess: 'Adventure successfully deleted.',
+  deleteWalkFailure: 'oop',
+  updateWalkSuccess: 'Updated successfully.',
+  updateWalkFailure: 'oop'
 }

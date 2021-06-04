@@ -14,7 +14,7 @@ class CreateWalk extends Component {
       walk: {
         startPoint: '',
         endPoint: '',
-        distance: 0
+        distance: ''
       },
       createdId: null
     }
@@ -33,7 +33,7 @@ handleSubmit = (event) => {
 
   axios({
     method: 'POST',
-    url: `${apiUrl}/walks`,
+    url: `${apiUrl}/start`,
     data: { walk: this.state.walk },
     headers: {
       Authorization: 'Bearer ' + this.props.user.token
