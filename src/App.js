@@ -10,8 +10,11 @@ import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
 import About from './components/About/About'
+
 // Walk components
 import CreateWalk from './components/CreateWalk/CreateWalk'
+import IndexWalks from './components/IndexWalks/IndexWalks'
+import ShowWalk from './components/ShowWalk/ShowWalk'
 
 class App extends Component {
   constructor (props) {
@@ -41,7 +44,6 @@ class App extends Component {
 
   render () {
     const { msgAlerts, user } = this.state
-    console.log('this is the user', user)
     return (
       <Fragment>
         <Header user={user} />
@@ -62,14 +64,20 @@ class App extends Component {
           <Route path='/sign-in' render={() => (
             <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
+          <AuthenticatedRoute user={user} path='/start' render={() => (
+            <CreateWalk msgAlert={this.msgAlert} user={user} />
+          )} />
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
             <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
           )} />
-          <AuthenticatedRoute user={user} path='/walks' render={() => (
-            <CreateWalk msgAlert={this.msgAlert} user={user} />
+          <AuthenticatedRoute user={user} exact path='/walks/:id' render={({ match }) => (
+            <ShowWalk msgAlert={this.msgAlert} user={user} match={match} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/walks' render={() => (
+            <IndexWalks msgAlert={this.msgAlert} user={user} />
           )} />
           <Route path='/about' render={() => (
             <About msgAlert={this.msgAlert} />
