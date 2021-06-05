@@ -41,8 +41,6 @@ class ShowWalk extends Component {
       }))
   }
   componentDidMount () {
-    console.log(this.props.user.token)
-    console.log(this.props.user._id)
     axios({
       method: 'GET',
       url: `${apiUrl}/walks/${this.props.match.params.id}`,
@@ -60,9 +58,6 @@ class ShowWalk extends Component {
     if (destroyed) {
       return <Redirect to='/walks'/>
     }
-    // if (updated) {
-    //   return walk.distance + prevState.distance
-    // }
     return (
       walk !== null
         ? <div>

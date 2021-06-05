@@ -14,7 +14,6 @@ class IndexWalks extends Component {
     }
   }
   componentDidMount () {
-    console.log('the props', this.props)
     axios({
       method: 'GET',
       url: `${apiUrl}/walks`,

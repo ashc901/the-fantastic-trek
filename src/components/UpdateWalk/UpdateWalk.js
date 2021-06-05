@@ -17,23 +17,8 @@ class UpdateWalk extends Component {
         distance: ''
       },
       updated: false,
-      updatedValue: 0,
-      show: false,
-      oldWalk: {}
+      show: false
     }
-  }
-  componentDidMount () {
-    axios({
-      method: 'GET',
-      url: `${apiUrl}/walks/${this.props.value}`,
-      headers: {
-        Authorization: 'Bearer ' + this.props.name.user.token
-      }
-    })
-      .then(res => {
-        this.setState({ oldWalk: res.data.walk })
-      })
-      .catch(console.error)
   }
   handleChange = (event) => {
     console.log(this.props)
@@ -53,28 +38,23 @@ class UpdateWalk extends Component {
     axios({
       method: 'PATCH',
       url: `${apiUrl}/walks/${this.props.value}`,
-      // you need to talk the old walk you got from the get request and all it
-      // to the user input to send back to the API
+
       data: { walk: this.state.walk },
       headers: {
         Authorization: 'Bearer ' + this.props.name.user.token
       }
     })
-      .then((res) => {
-        console.log(this.state.oldWalk)
-      }
-      )
       .then(() => this.props.name.msgAlert({
         heading: 'You\'ve gone so far!',
         message: messages.updateWalkSuccess,
         variant: 'success'
       }))
       .then(() => {
-        this.setState({ walk: {
-          startPoint: '',
-          endPoint: '',
-          distance: ''
-        }
+        this.setState({
+          updated: true,
+          walk: {
+            distance: ''
+          }
         })
       })
       .catch(error => this.props.name.msgAlert({
@@ -86,9 +66,9 @@ class UpdateWalk extends Component {
   render () {
     return (
       <div className="col-sm-10 col-md-8 mx-auto mt-5">
-        <Button onClick={this.changeModal}>Update Adventure</Button>
+        <Button onClick={this.changeModal}>Update</Button>
         <Modal show={this.state.show}>
-          <Modal.Header>How fare thee journey?</Modal.Header>
+          <Modal.Header>How far have you gone today?</Modal.Header>
 
           <Form onSubmit={this.handleSubmit}>
             <Modal.Body>
@@ -99,7 +79,7 @@ class UpdateWalk extends Component {
                   type="number"
                   name="distance"
                   value={this.state.walk.distance}
-                  placeholder="x"
+                  placeholder="Add miles from today"
                   onChange={this.handleChange}
                 />
               </Form.Group>
