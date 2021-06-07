@@ -16,7 +16,6 @@ class UpdateWalk extends Component {
         endPoint: '',
         distance: ''
       },
-      updated: false,
       show: false
     }
   }
@@ -51,11 +50,14 @@ class UpdateWalk extends Component {
       }))
       .then(() => {
         this.setState({
-          updated: true,
+          // updated: true,
           walk: {
             distance: ''
           }
         })
+      })
+      .then(() => {
+        this.props.update()
       })
       .catch(error => this.props.name.msgAlert({
         heading: 'Failed with error: ' + error.message,

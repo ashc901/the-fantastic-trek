@@ -14,6 +14,7 @@ class ShowWalk extends Component {
       destroyed: false,
       updated: false
     }
+    this.update = this.update.bind(this)
   }
   destroyWalk = (event) => {
     event.preventDefault()
@@ -41,6 +42,10 @@ class ShowWalk extends Component {
       }))
   }
   componentDidMount () {
+    this.update()
+  }
+
+  update () {
     axios({
       method: 'GET',
       url: `${apiUrl}/walks/${this.props.match.params.id}`,
@@ -53,6 +58,7 @@ class ShowWalk extends Component {
       })
       .catch(console.error)
   }
+
   render () {
     const { walk, destroyed } = this.state
     if (destroyed) {
@@ -65,7 +71,7 @@ class ShowWalk extends Component {
           <h3>{walk.distance} miles</h3>
           <div>
             <Button className="delete" value={walk._id} onClick={this.destroyWalk}>Destroy</Button>
-            <UpdateWalk className="update" value={walk._id} name={this.props}/>
+            <UpdateWalk className="update" value={walk._id} name={this.props} update={this.update.bind(this)} />
           </div>
         </div>
         : <h1></h1>
